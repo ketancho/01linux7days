@@ -2,7 +2,7 @@
 
 JOURNAL_DIR="/home/ec2-user/01linux7days-journals"
 OUTPUT_FILE="/var/www/html/index.html"
-TEMP_FILE="/home/ec2-user/tmp-index.html"
+TEMP_FILE="/home/ec2-user/temp-index.html"
 
 cat > $TEMP_FILE << 'EOF'
 <!DOCTYPE html>
