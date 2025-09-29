@@ -1,0 +1,7 @@
+#!/bin/bash
+
+JOURNAL_DIR="/home/ec2-user/01linux7days-journals"
+
+for txt_file in $JOURNAL_DIR/*.txt; do
+    echo "$(basename $txt_file): $(cat $txt_file)"
+done

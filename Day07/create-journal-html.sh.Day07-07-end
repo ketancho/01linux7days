@@ -1,0 +1,29 @@
+#!/bin/bash
+
+JOURNAL_DIR="/home/ec2-user/01linux7days-journals"
+OUTPUT_FILE="/var/www/html/index.html"
+TEMP_FILE="/home/ec2-user/tmp-index.html"
+
+cat > $TEMP_FILE << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>01linux7days 講座</title>
+</head>
+<body>
+    <h1>講座の学び</h1>
+    <ul>
+EOF
+
+for txt_file in $JOURNAL_DIR/*.txt; do
+    echo "        <li>$(basename $txt_file): $(cat $txt_file)</li>" >> $TEMP_FILE
+done
+
+cat >> $TEMP_FILE << 'EOF'
+    </ul>
+</body>
+</html>
+EOF
+
+sudo cp $TEMP_FILE $OUTPUT_FILE
+rm $TEMP_FILE
