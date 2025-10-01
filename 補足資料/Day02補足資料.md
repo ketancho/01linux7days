@@ -25,18 +25,18 @@ ls -la
 ## echo コマンド
 ```bash
 man echo
-echo "Welcome to 01linux7day!"
-echo "01linux7day へようこそ！"
+echo "Welcome to 01linux7days!"
+echo "01linux7days へようこそ！"
 ```
 
 ## リダイレクト
 ```bash
 cat sample.txt
 
-echo "Welcome to 01linux7day!" > sample.txt
+echo "Welcome to 01linux7days!" > sample.txt
 cat sample.txt
 
-echo "01linux7day へようこそ！" > sample.txt
+echo "01linux7days へようこそ！" > sample.txt
 cat sample.txt
 
 echo "追記テスト" >> sample.txt
