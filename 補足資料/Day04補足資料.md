@@ -43,6 +43,7 @@ exit
 # おさらい演習
 sudo useradd test-user2
 sudo usermod -aG test-users test-user2
+cat /etc/group
 ```
 
 # Day4-4: Linux におけるパーミッションを理解する① - Owner x ディレクトリ操作
@@ -67,25 +68,28 @@ touch permission-test-file.txt
 mkdir permission-test-directory
 rm -r permission-test-directory/
 cd ..
-ls -al permission-test/
+ls -l permission-test/
 
 # Onwer = rx の実験
 chmod 500 permission-test/
+ls -l
 cd permission-test/
 touch permission-test-file2.txt # エラー
 mkdir permission-test-directory # エラー
 rm permission-test-file.txt # エラー
 cd ..
-ls -al permission-test/
+ls -l permission-test/
 
 # Onwer = r の実験
 chmod 400 permission-test/
+ls -l
 cd permission-test/ # エラー
-ls -al permission-test/ # 一部表示されない
+ls -l permission-test/ # 一部表示されない
 
 # Onwer = - の実験
 chmod 000 permission-test/
-ls -al permission-test/ # エラー
+ls -l
+ls -l permission-test/ # エラー
 ```
 
 # Day4-5: Linux におけるパーミッションを理解する② - (Group, Other) x ディレクトリ操作
@@ -95,8 +99,9 @@ chmod 750 permission-test/
 
 # Owner : test-user / rwx の実験
 cd permission-test/
-ls -al
 touch permission-test-file2.txt
+cd ..
+ls -l permission-test
 
 # Group: test-user2 / rx (w なし）の実験
 ## test-user2 に su
@@ -104,22 +109,27 @@ exit
 sudo su - test-user2
 cd /tmp
 
+## 実験
 cd permission-test
-ls -al
 touch permission-test-file3.txt # エラー
+cd ..
+ls -l permission-test
 
 # Other: ec2-user / - （rwx なし）の実験
 ## ec2-user に su
 exit
-
 cd /tmp
+
+## 実験
 cd permission-test # エラー
+ls -l permission-test # エラー
 ```
 
 # Day4-6: Linux におけるパーミッションを理解する③ - (Owner, Group, Other) x ファイル操作
 ```bash
 # 準備：test-user でファイル作成 & グループ変更 & パーミッション変更
 sudo su - test-user
+cd /tmp
 touch permission-test-file.txt
 chgrp test-users permission-test-file.txt
 chmod 640 permission-test-file.txt
@@ -132,12 +142,16 @@ cat permission-test-file.txt
 exit
 sudo su - test-user2
 cd /tmp
+
+## 実験
 echo "test-user2" >> permission-test-file.txt # エラー
 cat permission-test-file.txt
 
 # ec2-user の場合
 exit
 cd /tmp
+
+## 実験
 echo "ec2-user" >> permission-test-file.txt # エラー
 cat permission-test-file.txt # エラー
 ```
@@ -148,7 +162,7 @@ cat permission-test-file.txt # エラー
 # パスワードを変更（作成）する
 sudo passwd test-user
 
-sudo su - test-user
+su - test-user
 passwd # 現在のパスワードの入力が求められるので入力
 exit
 
@@ -179,7 +193,8 @@ sudo systemctl restart sshd
 
 ## 疎通テスト (x.x.x.x は皆さまの EC2 インスタンスの「パブリック IPv4 アドレス」に置き換えてください)
 ```bash
-ssh ex2-user@x.x.x.x # -> 接続できない
+exit
+ssh ec2-user@x.x.x.x # -> 接続できない
 ssh test-user@x.x.x.x # -> パスワードが聞かれる
 ```
 
@@ -195,18 +210,19 @@ sudo sshd -t
 sudo systemctl restart sshd
 
 # test-user で SSH できないことを確認する
+exit
 ssh test-user@x.x.x.x # エラー
 ```
 
 # Day4-8: 公開鍵と秘密鍵を設定して SSH 接続する
 ```bash
-#@Cloud Shell
+#@CloudShell
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/test-user-key # パスワードは入れなくて OK
 
 ls -al .ssh/
 # → pub なしが秘密鍵、ありが公開鍵。公開鍵を Linux サーバーに送る
-scp -i 01linux7days.pem ~/.ssh/test-user-key.pub ec2-user@54.178.106.70:/tmp/
-ssh -i 01linux7days.pem ec2-user@54.178.106.70
+scp -i 01linux7days.pem ~/.ssh/test-user-key.pub ec2-user@x.x.x.x:/tmp/ # x.x.x.x は皆さまの EC2 インスタンスの「パブリック IPv4 アドレス」に置き換えてください
+ssh -i 01linux7days.pem ec2-user@x.x.x.x
 
 #@EC2 Instance
 # ec2-user 
@@ -233,6 +249,7 @@ ssh -i .ssh/test-user-key test-user@x.x.x.x
 ## test-user の削除
 # ユーザー test-user がいることを確認
 sudo su - test-user
+exit
 
 sudo userdel -r test-user
 # → -r をつけないとホームディレクトリが残ってしまう
