@@ -20,6 +20,7 @@ ps ux
 sleep 30 &
 ps ux
 kill <プロセス番号>
+ps ux
 
 # top コマンドの実行
 top # q で停止
@@ -37,13 +38,13 @@ du -h | sort -hr
 
 # Day6-3: find コマンドでファイルやディレクトリを検索する
 ```bash
-find ~ -name work-log-20250401.txt
+find ~ -name day5.txt
 
 # ワイルドカード（*）を利用
 find ~ -name "*work*"
 
-find / -name "*log*”
-sudo find / -name "*log*”
+find / -name "*.log”
+sudo find / -name "*.log”
 
 # -size を指定
 sudo find / -name "*.log" -size +100k
@@ -60,23 +61,23 @@ tree find-practice
 # Day6-4: find コマンド演習
 ```bash
 # 想定回答（これ以外のコマンドでも、結果が同じであれば問題ありません。回答の一例となります。）
-## ① ~/find-practice 以下 にある、.txt で終わる ディレクトリ/ファイルを全て表示してください。
-find ./find-practice -name "*.txt"
+## ① ~/find-practice 以下 にある、".txt" で終わる ディレクトリ/ファイルを全て表示してください。
+find ~/find-practice -name "*.txt"
 
-##② ~/find-practice 以下にある、名前に “report” が含まれるディレクトリ/ファイルを全て表示してください。
-find ./find-practice -name "*report*"
+## ② ~/find-practice 以下 にある、"report" が含まれる ディレクトリ/ファイルを全て表示してください。
+find ~/find-practice -name "*report*"
 
-## ③ ~/find-practice/config 以下にある、名前が .json で終わるディレクトリ/ファイルを全て表示してください。
-find ./find-practice/config -name "*.json"
+## ③ ~/find-practice/config 以下 にある、".json" で終わる ディレクトリ/ファイルを全て表示してください。
+find ~/find-practice/config -name "*.json"
 
-## ④ ~/find-practice 以下にある、ディレクトリのみを全て表示してください。
-find ./find-practice -type d
+## ④ ~/find-practice 以下 にある、"ディレクトリのみ" を全て表示してください。
+find ~/find-practice -type d
 
-## ⑤ ~/find-practice 以下にある、ファイル名に “log” が含まれる “ファイルのみ” を全て表示してください。
-find ./find-practice -name "*log*" -type f
+## ⑤ ~/find-practice 以下 にある、"log" が含まれる "ファイルのみ" を全て表示してください。
+find ~/find-practice -name "*log*" -type f
 
-## ⑥ **~/find-practice 以下にある、10KB 以上のディレクトリ/ファイルを全て表示してください。
-find ./find-practice -size +10k
+## ⑥ ~/find-practice 以下 にある、"10KB 以上の" ディレクトリ/ファイルを全て表示してください。
+find ~/find-practice -size +10k
 ```
 
 # Day6-5: grep コマンドでテキストから文字列を検索する
@@ -99,6 +100,7 @@ EOF
 cat here-doc.txt
 
 date
+echo "date: $(date)"
 
 # 変数を展開しない 'EOF' （シングルクォーテーションあり）
 cat > here-doc.txt << 'EOF'
