@@ -2,8 +2,11 @@ Day5 のハンズオンで利用するコマンドを記載します。
 
 # Day5-1: dnf を用いたパッケージ管理
 ```bash
-dnf update
+dnf update # エラー
+sudo dnf update
+
 dnf search tree
+
 dnf install tree # エラー
 sudo dnf install tree # 途中で y を入力し、Enter
 
@@ -86,7 +89,7 @@ set tabstop=4
 
 sudo vim /var/www/html/index.html
 
-# 参考：Git から clone したファイルの利用方法
+# 参考：Git から clone したファイルの利用方法（↑の作業がうまくいかなかった場合のみご実施ください）
 cat 01linux7days/Day05/index.html.Day05-06-end
 sudo cp 01linux7days/Day05/index.html.Day05-06-end /var/www/html/index.html
 ```
@@ -101,6 +104,8 @@ sudo cp 01linux7days/Day05/01linux7days.png /var/www/html/img/
 
 # Day5-8: tail -f を使って httpd のログファイルを確認する
 ```bash
+sudo ls -l /var/log/httpd/
+
 sudo tail -f /var/log/httpd/access_log
 
 sudo tail -f /var/log/httpd/error_log
@@ -116,11 +121,11 @@ curl -v http://x.x.x.x/
 # wget
 wget http://x.x.x.x/ 
 ls -l
-more index.html
+cat index.html
 
 wget -O day6-index.html http://x.x.x.x/
 ls -l
-more day6-index.html
+cat day6-index.html
 
 # ping （デモ）
 ping x.x.x.x # エラー
