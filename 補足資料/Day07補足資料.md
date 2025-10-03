@@ -15,6 +15,9 @@ ls -l /home/ec2-user/
 
 実行
 ```bash
+./sample.sh
+
+# 実行権限を追加
 chmod +x sample.sh
 ./sample.sh
 ```
@@ -56,7 +59,7 @@ ls -l $DIR
 ```bash
 #!/bin/bash
 
-MONTH=9
+MONTH=10
 
 echo "今日は $MONTH 月です！"
 ```
@@ -78,12 +81,19 @@ echo "今日は $MONTH 月です！"
 
 実行
 ```bash
-./sample.sh 9 
+./sample.sh 10
 ```
 
 # Day7-3: シェルスクリプトの制御構造を使ってみる
 ```bash
 ./sample.sh # 引数なしで実行できてしまう
+```
+## ec2-user の .vimrc を修正
+```bash
+vim .vimrc
+====
+set tabstop=4
+====
 ```
 ## if 文を使う
 この時点での sample.sh
@@ -97,7 +107,8 @@ fi
 
 実行
 ```bash
-./sample.sh 9 # if 文を挟んでも動作することをまず確認
+./sample.sh 10 
+./sample.sh # なにも表示されない
 ```
 
 ## if-else を使う
@@ -114,7 +125,7 @@ fi
 
 実行
 ```bash
-./sample.sh 9
+./sample.sh 10
 ./sample.sh
 ```
 
@@ -156,13 +167,11 @@ realpath 01linux7days-journals
 
 実行
 ```bash
-./create-journal-html.sh # エラー
-
 chmod +x create-journal-html.sh
 ./create-journal-html.sh
 ```
 
-## create-journal-html.sh をアップデートし、for 文でディレクトリ内の .txt ファイルを全て取得する
+## create-journal-html.sh をアップデートし、for 文でディレクトリ内の .txt ファイルを全て取得し、（いったん）それらのパスを表示する
 ※ ここからの `vim create-journal-html.sh` は省略します。
 
 この時点での create-journal-html.sh
