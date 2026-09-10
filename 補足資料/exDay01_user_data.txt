@@ -1,0 +1,12 @@
+#!/bin/bash
+
+dnf install -y httpd git
+
+systemctl start httpd
+systemctl enable httpd
+
+cd /tmp
+git clone https://github.com/ketancho/01linux7days.git
+
+cp /tmp/01linux7days/exDay01/index.html /var/www/html/index.html
+cp /tmp/01linux7days/exDay01/01linux7days.png /var/www/html/01linux7days.png
