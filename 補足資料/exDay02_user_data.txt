@@ -1,0 +1,14 @@
+#!/bin/bash
+
+dnf install -y httpd git
+
+systemctl start httpd
+systemctl enable httpd
+
+cd /tmp
+git clone https://github.com/ketancho/01linux7days.git
+
+cp -a /tmp/01linux7days/exDay02/. /home/ec2-user/
+
+chown -R ec2-user:ec2-user /home/ec2-user/wc-hands-on
+chown -R ec2-user:ec2-user /home/ec2-user/sed-diff-hands-on
